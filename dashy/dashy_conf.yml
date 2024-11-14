@@ -1,0 +1,855 @@
+appConfig:
+  theme: terminal-theme
+  cssThemes:
+    - terminal-theme
+  customColors:
+    terminal-theme:
+      primary: '#33ff00'
+      background: '#0a0a0a'
+      backgroundDarker: '#0c0c0c'
+  customCss: |
+    /* Terminal Theme Styles */
+    [data-theme='terminal-theme'] {
+      /* Base Colors */
+      --primary: #33ff00;
+      --background: #0a0a0a;
+      --background-darker: #0c0c0c;
+      
+      /* Text Colors */
+      --heading-text-color: var(--primary);
+      --nav-link-text-color: var(--primary);
+      --item-text-color: var(--primary);
+      --footer-text-color: rgba(51, 255, 0, 0.8);
+      
+      /* UI Elements */
+      --item-group-background: rgba(12, 12, 12, 0.8);
+      --item-group-outer-background: var(--background-darker);
+      --search-container-background: var(--background-darker);
+      --search-field-background: var(--background);
+      --settings-background: var(--background-darker);
+      --settings-text-color: var(--primary);
+      
+      /* Section Headers - Fixed */
+      --item-group-heading-text-color: var(--primary) !important;
+      --item-group-heading-text-color-hover: var(--primary) !important;
+      --item-group-heading-text-shadow: 0 0 2px rgba(51, 255, 0, 0.3);
+      
+      /* Effects */
+      --curve-factor: 4px;
+      --curve-factor-navbar: 6px;
+      --item-shadow: 0 0 5px rgba(51, 255, 0, 0.2);
+      --item-hover-shadow: 0 0 10px rgba(51, 255, 0, 0.3);
+      --item-group-shadow: 0 0 8px rgba(51, 255, 0, 0.2);
+      --dimming-factor: 0.8;
+
+      /* Font */
+      font-family: 'JetBrains Mono', 'Courier New', monospace !important;
+    }
+
+    /* Section Heading Styles */
+    [data-theme='terminal-theme'] .item-group-heading {
+      color: var(--primary) !important;
+      text-shadow: 0 0 2px rgba(51, 255, 0, 0.3);
+    }
+
+    /* Ensure heading stays visible on hover */
+    [data-theme='terminal-theme'] .item-group-heading:hover {
+      color: var(--primary) !important;
+      text-shadow: 0 0 4px rgba(51, 255, 0, 0.5);
+    }
+
+    /* Terminal Cursor Effect */
+    [data-theme='terminal-theme'] .item-title::after {
+      content: '_';
+      animation: blink 1s step-end infinite;
+      margin-left: 2px;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* CRT Scan Effect */
+    [data-theme='terminal-theme'] #app::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        rgba(51, 255, 0, 0.03),
+        rgba(51, 255, 0, 0.03) 50%,
+        transparent 50%,
+        transparent
+      );
+      background-size: 100% 4px;
+      pointer-events: none;
+      animation: scan 10s linear infinite;
+      z-index: 9999;
+    }
+
+    @keyframes scan {
+      from { transform: translateY(-50%); }
+      to { transform: translateY(50%); }
+    }
+  layout: auto
+  iconSize: small
+pageInfo:
+  title: Terminal Zero
+  description: centralized interface for all homelab operations
+  navLinks:
+    - title: <your github username>'s Github
+      path: http://github.com/<your github username>
+      target: newtab
+  footerText: ''
+sections:
+  - name: Clock
+    icon: fas fa-clock
+    widgets:
+      - type: clock
+        options:
+          timeZone: America/New_York
+          customCityName: Virginia
+          format: en-US
+          hideDate: false
+        id: 0_492_clock
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+  - name: Media
+    icon: fas fa-video
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    items:
+      - title: Proxmox Media
+        description: Media Server Hypervisor
+        icon: hl-proxmox
+        url: https://proxmox-media.<your internal homelab url>
+        target: newtab
+        statusCheck: true
+        id: 0_480_proxmoxmedia
+      - title: TrueNAS Media
+        description: Media Storage Server
+        icon: hl-truenas
+        url: https://truenas-media.<your internal homelab url>
+        target: newtab
+        statusCheck: true
+        id: 1_480_truenasmedia
+      - title: Plex Server
+        description: Home Media Center
+        icon: hl-plex
+        url: http://plex.<your internal homelab url>/web/index.html
+        target: newtab
+        statusCheck: true
+        statusCheckUrl: http://plex.<your internal homelab url>/identity
+        statusCheckAllowInsecure: true
+        id: 2_480_plexserver
+      - title: Plex
+        description: Plex TV
+        icon: si-plex
+        url: https://app.plex.tv/
+        target: newtab
+        id: 3_480_plex
+      - title: IMDb
+        description: IMDb TV
+        icon: favicon
+        url: https://www.imdb.com/
+        target: newtab
+        statusCheck: false
+        id: 4_480_imdb
+      - title: Common Sense Media
+        description: Parental Controls
+        icon: favicon
+        url: https://www.commonsensemedia.org/
+        target: newtab
+        id: 5_480_commonsensemedia
+      - title: Rotten Tomatoes
+        description: Rotten Tomatoes
+        icon: favicon
+        url: https://www.rottentomatoes.com/
+        target: newtab
+        id: 6_480_rottentomatoes
+      - title: Reelgood
+        description: Where to Stream Movies & TV
+        icon: favicon
+        url: https://reelgood.com/
+        target: newtab
+        statusCheck: false
+        id: 7_480_reelgood
+  - name: Monitoring
+    icon: fas fa-chart-line
+    items:
+      - title: Proxmox DashNet
+        description: DashNet Proxmox Node
+        icon: hl-proxmox
+        url: https://proxmox-dashnet.<your internal homelab url>
+        target: newtab
+        statusCheck: true
+        id: 0_1062_proxmoxdashnet
+      - title: Services Status Page
+        icon: si-uptimekuma
+        url: https://uptime.<your internal homelab url>/status/monitor
+        target: newtab
+        statusCheck: true
+        id: 1_1062_servicesstatuspage
+      - title: Uptime Kuma
+        description: Monitoring App Uptime
+        statusCheck: true
+        url: https://uptime.<your internal homelab url>/
+        icon: https://uptime.kuma.pet/img/icon.svg
+        id: 2_1062_uptimekuma
+      - title: SmokePing
+        description: Network latency monitoring
+        icon: hl-smokeping
+        url: https://smokeping.<your internal homelab url>/
+        target: newtab
+        statusCheck: true
+        id: 3_1062_smokeping
+  - name: Networks & Security
+    icon: fas fa-network-wired
+    items:
+      - title: 1Password
+        description: Password Manager
+        icon: favicon
+        url: https://my.1password.com/
+        target: newtab
+        id: 0_1819_password
+      - title: Unifi
+        description: Unifi Network Controller
+        icon: hl-unifi
+        statusCheck: true
+        url: https://unifi.ui.com/
+        target: newtab
+        id: 1_1819_unifi
+      - title: Pi-Hole
+        description: DNS settings for ad & tracker blocking
+        icon: hl-pihole
+        url: https://pihole.<your internal homelab url>/
+        statusCheck: true
+        id: 2_1819_pihole
+      - title: Traefik
+        description: SSL Proxy & Loadbalancer
+        icon: hl-traefik
+        url: https://traefik-dashboard.<your internal homelab url>/dashboard/#/
+        target: newtab
+        statusCheck: true
+        statusCheckUrl: http://<ip_address>:8080/ping
+        statusCheckAllowInsecure: true
+        id: 3_1819_traefik
+      - title: Authentik
+        description: Single sign-on and two-factor authentication server
+        icon: hl-authentik
+        url: http://auth.<your internal homelab url>/
+        target: newtab
+        statusCheck: true
+        id: 4_1819_authentik
+      - title: Tailscale
+        description: Secure, zero-config, mesh VPN
+        icon: si-tailscale
+        url: https://login.tailscale.com/admin/machines
+        target: newtab
+        id: 5_1819_tailscale
+      - title: Vault
+        description: >-
+          Secure, store, and tightly control access to tokens, passwords,
+          certificates, API keys, and other secrets in modern computing
+        icon: si-vault
+        url: https://vault.<your internal homelab url>:8200/
+        target: newtab
+        statusCheck: true
+        id: 6_1819_vault
+      - title: Cloudflare
+        icon: hl-cloudflare
+        url: https://dash.cloudflare.com/
+        target: newtab
+        statusCheck: false
+        id: 7_1819_cloudflare
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+  - name: Development
+    icon: fas fa-code
+    items:
+      - title: GitHub
+        description: My Github Profile
+        url: https://github.com/<your github username>
+        icon: favicon
+        statusCheck: false
+        id: 0_1155_github
+      - title: Cursor
+        description: AI-powered Code Editor
+        icon: favicon
+        url: https://cursor.sh/
+        target: newtab
+        id: 1_1155_cursor
+      - title: Replit
+        description: Cloud IDE
+        icon: favicon
+        url: https://replit.com
+        target: newtab
+        statusCheck: false
+        id: 2_1155_replit
+      - title: Bolt.new
+        description: Quick Code Prototyping
+        icon: https://icon.horse/icon/bolt.new
+        url: https://bolt.new
+        target: newtab
+        id: 3_1155_boltnew
+      - title: v0 by Vercel
+        description: Quick Prototyping
+        icon: favicon
+        url: https://v0.dev/
+        target: newtab
+        id: 4_1155_vbyvercel
+      - title: CodeSandbox
+        description: Online Code Editor
+        icon: https://codesandbox.io/favicon.ico
+        url: https://codesandbox.io
+        target: newtab
+        id: 5_1155_codesandbox
+      - title: Docker Hub
+        description: Docker Hub
+        icon: si-docker
+        url: https://hub.docker.com/u/<your dockerhub username>
+        id: 6_1155_dockerhub
+  - name: AI Tools
+    icon: fas fa-robot
+    items:
+      - title: ChatGPT
+        icon: hl-chatgpt
+        url: https://chat.openai.com/
+        target: newtab
+        statusCheck: false
+        id: 0_699_chatgpt
+      - title: Claude
+        icon: favicon
+        url: https://claude.ai
+        target: newtab
+        id: 1_699_claude
+      - title: Perplexity
+        icon: https://www.perplexity.ai/favicon.ico
+        url: https://www.perplexity.ai/
+        target: newtab
+        statusCheck: false
+        id: 2_699_perplexity
+      - title: Anthropic Console
+        icon: favicon
+        url: https://console.anthropic.com/
+        target: newtab
+        id: 3_699_anthropicconsole
+      - title: Google AI Studio
+        icon: favicon
+        url: https://aistudio.google.com/app/prompts
+        target: newtab
+        id: 4_699_googleaistudio
+      - title: Gemini
+        description: Google LLM
+        icon: favicon
+        url: https://gemini.google.com/app
+        target: newtab
+        id: 5_699_gemini
+  - name: Infrastructure
+    icon: fas fa-server
+    items:
+      - title: Proxmox Ent Node 1
+        description: Hypervisor Access
+        icon: hl-proxmox
+        url: https://node1-pve.<your internal homelab url>
+        target: newtab
+        statusCheck: true
+        id: 0_1505_proxmoxentnode
+      - title: Proxmox Ent Node 2
+        description: Hypervisor Access
+        icon: hl-proxmox
+        url: https://node2-pve.<your internal homelab url>
+        target: newtab
+        statusCheck: true
+        id: 1_1505_proxmoxentnode
+      - title: Proxmox Ent Node 3
+        description: Hypervisor Access
+        icon: hl-proxmox
+        url: https://node3-pve.<your internal homelab url>
+        target: newtab
+        statusCheck: true
+        id: 2_1505_proxmoxentnode
+      - title: Proxmox Main
+        description: Hypervisor Access
+        icon: hl-proxmox
+        url: https://proxmox.<your internal homelab url>
+        target: newtab
+        statusCheck: true
+        id: 3_1505_proxmoxmain
+      - title: Proxmox Dev
+        description: Hypervisor Access
+        icon: hl-proxmox
+        url: https://proxmoxdev.<your internal homelab url>
+        target: newtab
+        statusCheck: true
+        id: 4_1505_proxmoxdev
+      - title: Proxmox Helper Scripts
+        description: Proxmox Helper Scripts
+        icon: hl-proxmox
+        url: https://community-scripts.github.io/Proxmox/
+        target: newtab
+        statusCheck: true
+        id: 5_1505_proxmoxhelperscripts
+      - title: TrueNAS
+        description: Network Attached Storage
+        icon: hl-truenas
+        statusCheck: true
+        url: https://truenas.<your internal homelab url>
+        target: newtab
+        id: 6_1505_truenas
+      - title: PiKVM v3
+        description: PiKVM
+        icon: 𝜋
+        url: https://pikvm.<your internal homelab url>/
+        target: newtab
+        statusCheck: true
+        id: 7_1505_pikvmv
+      - title: Dockge DashNet
+        description: Docker MGMT
+        icon: favicon-local
+        url: https://dockge-dashnet.<your internal homelab url>/
+        target: newtab
+        statusCheck: true
+        statusCheckUrl: https://dockge-dashnet.<your internal homelab url>/
+        id: 8_1505_dockgedashnet
+      - title: Apache NiFi
+        icon: https://nifi.apache.org/images/apache-nifi-drop-logo.svg
+        url: https://nifi.<your internal homelab url>/nifi/
+        target: newtab
+        statusCheck: true
+        statusCheckUrl: <ip_address>:8080/nifi
+        id: 9_1505_apachenifi
+      - title: N8N
+        description: Low-code automation
+        icon: hl-n8n
+        url: https://n8n.<your internal homelab url>/signin
+        id: 10_1505_nn
+      - title: Zima-CasaOS1
+        description: ZimaBoard-01
+        icon: https://wiki.casaos.io/_assets/casaos-no-text.svg
+        url: http://zimaboard01.<your internal homelab url>
+        target: newtab
+        statusCheck: true
+        statusCheckUrl: http://<ip_address>
+        id: 11_1505_zimacasaos
+      - title: Zima-CasaOS2
+        description: ZimaBoard-02
+        icon: https://wiki.casaos.io/_assets/casaos-no-text.svg
+        url: http://zimaboard02.<your internal homelab url>
+        target: newtab
+        statusCheck: true
+        statusCheckUrl: http://<ip_address>
+        id: 12_1505_zimacasaos
+    displayData:
+      sortBy: default
+      rows: 2
+      cols: 2
+      collapsed: false
+      hideForGuests: false
+  - name: My Personal Links  # You can rename this to "Custom Links" or "Your Sites"
+    icon: fas fa-link
+    items:
+      # Example personal sites - replace with your own
+      - title: My Blog
+        description: Personal blog/website
+        icon: favicon
+        url: https://example.com/blog
+        statusCheck: true
+        id: 0_1611_blog
+      - title: My Project
+        description: Side project website
+        icon: favicon
+        url: https://example.com/project
+        statusCheck: true
+        id: 1_1611_project
+      # Optional - Real examples of how others use this section
+      - title: Homelab Codes URL Expander
+        description: URL Expander
+        icon: fas fa-link
+        url: https://url-expander.homelab.codes/
+        statusCheck: true
+        id: 2_1817_homelabcodesurlexpander
+  - name: Internal Utilities
+    icon: fas fa-toolbox
+    displayData:
+      collapsed: false
+    items:
+      - title: UpSnap
+        icon: hl-upsnap
+        description: Wake on LAN
+        url: https://upsnap.<your internal homelab url>/
+        id: 0_1817_upsnap
+      - title: Ntfy
+        description: Push Notifications
+        icon: hl-ntfy
+        url: https://ntfy.<your internal homelab url>/
+        id: 1_1817_ntfy
+      - title: Homelab Codes URL Expander
+        description: URL Expander
+        icon: fas fa-link
+        url: https://url-expander.homelab.codes/
+        statusCheck: true
+        id: 2_1817_homelabcodesurlexpander
+      - title: Quick Markdown
+        description: Quick Markdown Editor
+        icon: si-markdown
+        url: https://quick-markdown.homelab.codes/
+        statusCheck: true
+        id: 3_1817_quickmarkdown
+  - name: External Tools & Utilities
+    icon: fas fa-toolbox
+    displayData:
+      collapsed: false
+      rows: 2
+    items:
+      - title: Network & DNS Analysis
+        description: Network testing and DNS utilities
+        icon: fas fa-network-wired
+        subItems:
+          - title: Public IP Checker
+            description: Check public IP and associated data
+            url: https://www.whatismyip.com/
+            icon: fas fa-eye
+            id: net_publicip
+          - title: Speed Test
+            description: Upload + download speeds and latency
+            url: https://speed.cloudflare.com/
+            icon: fas fa-tachometer-alt
+            id: net_speedtest
+          - title: Who Is Lookup
+            description: ICANN domain and IP information
+            url: https://whois.domaintools.com/
+            icon: fas fa-search-location
+            id: net_whois
+          - title: DNSChecker
+            description: Multi-location DNS lookups
+            url: https://dnschecker.org/
+            icon: fas fa-search
+            id: net_dnschecker
+          - title: MXToolbox
+            description: Mail and DNS diagnostics
+            url: https://mxtoolbox.com/
+            icon: fas fa-envelope
+            id: net_mxtoolbox
+          - title: DNS Propagation
+            description: Check DNS propagation globally
+            url: https://dnspropagation.net/
+            icon: fas fa-globe
+            id: net_dnsprop
+          - title: Port Checker
+            description: Test port accessibility
+            url: https://portchecker.co/
+            icon: fas fa-plug
+            id: net_portcheck
+          - title: DNS Leak Test
+            description: DNS security testing
+            url: https://www.dnsleaktest.com/
+            icon: fas fa-faucet-drip
+            id: net_dnsleak
+        id: 0_2454_networkdnsanalysis
+      - title: Security Testing
+        description: Security analysis and testing tools
+        icon: fas fa-shield-alt
+        subItems:
+          - title: SSL Labs
+            description: SSL/TLS testing by Qualys
+            url: https://www.ssllabs.com/ssltest/
+            icon: fas fa-lock
+            id: sec_ssllabs
+          - title: Security Headers
+            description: Website security header analysis
+            url: https://securityheaders.com/
+            icon: fas fa-shield-check
+            id: sec_headers
+          - title: Observatory
+            description: Mozilla security testing suite
+            url: https://observatory.mozilla.org/
+            icon: fas fa-telescope
+            id: sec_observatory
+          - title: CSP Evaluator
+            description: Content Security Policy testing
+            url: https://csp-evaluator.withgoogle.com/
+            icon: fas fa-check
+            id: sec_csp
+          - title: Have I Been Pwned
+            description: Data breach checking
+            url: https://haveibeenpwned.com/
+            icon: fas fa-user-shield
+            id: sec_hibp
+        id: 1_2454_securitytesting
+      - title: Development Tools
+        description: Code and development utilities
+        icon: fas fa-code
+        subItems:
+          - title: JSON Formatter
+            description: Format and validate JSON
+            url: https://jsonformatter.org/
+            icon: fas fa-brackets-curly
+            id: dev_json
+          - title: Regex101
+            description: Regular expression testing
+            url: https://regex101.com/
+            icon: fas fa-asterisk
+            id: dev_regex
+          - title: JWT.io
+            description: JWT token debugger by Auth0
+            url: https://jwt.io/
+            icon: fas fa-key
+            id: dev_jwt
+          - title: CyberChef
+            description: GCHQ's data analysis toolkit
+            url: https://gchq.github.io/CyberChef/
+            icon: fas fa-mortar-pestle
+            id: dev_cyberchef
+          - title: RequestBin
+            description: HTTP request inspection
+            url: https://requestbin.com/
+            icon: fas fa-inbox
+            id: dev_requestbin
+          - title: Webhook.site
+            description: Webhook testing and debugging
+            url: https://webhook.site/
+            icon: fas fa-cookie-bite
+            id: dev_webhook
+          - title: httpstat.us
+            description: HTTP status code testing
+            url: http://httpstat.us/
+            icon: fas fa-server
+            id: dev_httpstat
+        id: 2_2454_developmenttools
+      - title: Utilities & References
+        description: Helpful tools and references
+        icon: fas fa-tools
+        subItems:
+          - title: Chalk.ist
+            description: Beautiful code screenshots
+            url: https://chalk.ist/
+            icon: fas fa-image
+            id: util_chalk
+          - title: CopyChar
+            description: Special character clipboard tool
+            url: https://copychar.cc/
+            icon: fas fa-copy
+            id: util_copychar
+          - title: Worldtime Buddy
+            description: Timezone management and conversion
+            url: https://www.worldtimebuddy.com/
+            icon: fas fa-globe
+            id: util_worldtime
+          - title: ExplainShell
+            description: Linux command explanation
+            url: https://explainshell.com/
+            icon: fas fa-terminal
+            id: util_explainshell
+          - title: SSL Config Generator
+            description: Mozilla SSL configuration tool
+            url: https://ssl-config.mozilla.org/
+            icon: fas fa-lock-alt
+            id: util_sslconfig
+          - title: SelfHosted
+            description: Reddit r/selfhosted community
+            url: https://reddit.com/r/selfhosted
+            icon: fab fa-reddit
+            id: util_selfhosted
+        id: 3_2454_utilitiesreferences
+  - name: Documentation & References
+    icon: fas fa-books
+    displayData:
+      collapsed: false
+      rows: 2
+    items:
+      - title: Infrastructure & Virtualization
+        description: Core infrastructure documentation
+        icon: fas fa-server
+        subItems:
+          - title: Proxmox
+            description: Virtualization platform docs
+            icon: hl-proxmox
+            url: https://pve.proxmox.com/wiki/Main_Page
+            id: docs_proxmox
+          - title: TrueNAS
+            description: Storage platform docs
+            icon: hl-truenas
+            url: https://www.truenas.com/docs/
+            id: docs_truenas
+          - title: Docker
+            description: Container platform docs
+            icon: si-docker
+            url: https://docs.docker.com/
+            id: docs_docker
+          - title: Docker Hub
+            description: Container registry
+            icon: si-docker
+            url: https://hub.docker.com/
+            id: docs_dockerhub
+          - title: PiKVM
+            description: KVM management docs
+            icon: 𝜋
+            url: https://docs.pimoroni.com/pimkvm/
+            id: docs_pikvm
+          - title: CasaOS
+            description: Home server OS docs
+            icon: https://wiki.casaos.io/_assets/casaos-no-text.svg
+            url: https://docs.casaos.io/
+            id: docs_casaos
+        id: 0_2498_infrastructurevirtualization
+      - title: Networking & Security
+        description: Network and security documentation
+        icon: fas fa-shield-alt
+        subItems:
+          - title: Pi-Hole
+            description: DNS ad-blocking docs
+            icon: si-pihole
+            url: https://docs.pi-hole.net/
+            id: docs_pihole
+          - title: Can You Block It?
+            description: DNS blocking test
+            icon: fas fa-question
+            url: https://www.canyoublockit.com/
+            id: docs_canyoublockit
+          - title: Tailscale
+            description: VPN networking docs
+            icon: si-tailscale
+            url: https://tailscale.com/docs/
+            id: docs_tailscalef
+          - title: Cloudflare
+            description: CDN & DNS docs
+            icon: hl-cloudflare
+            url: https://developers.cloudflare.com/
+            id: docs_cloudflare
+          - title: Authentik
+            description: Authentication system docs
+            icon: hl-authentik
+            url: https://goauthentik.io/docs/
+            id: docs_authentik
+          - title: Traefik
+            description: Reverse proxy docs
+            icon: hl-traefik
+            url: https://doc.traefik.io/traefik/
+            id: docs_traefik
+          - title: Vault
+            description: Secrets management docs
+            icon: si-vault
+            url: https://www.vaultproject.io/docs/
+            id: docs_vault
+        id: 1_2498_networkingsecurity
+      - title: Automation & Data Management
+        description: Automation and data processing docs
+        icon: fas fa-robot
+        subItems:
+          - title: Home Assistant
+            description: Home automation docs
+            icon: si-homeassistant
+            url: https://www.home-assistant.io/docs/
+            id: docs_homeassistant
+          - title: N8N
+            description: Workflow automation docs
+            icon: hl-n8n
+            url: https://docs.n8n.io/
+            id: docs_n8n
+          - title: Apache NiFi
+            description: Data flow docs
+            icon: https://nifi.apache.org/images/apache-nifi-drop-logo.svg
+            url: https://nifi.apache.org/components/
+            id: docs_nifi
+          - title: Neo4j
+            description: Graph database docs
+            icon: https://neo4j.com/favicon.ico
+            url: https://neo4j.com/docs/
+            id: docs_neo4j
+        id: 2_2498_automationdatamanagement
+      - title: Development Resources
+        description: Programming and development docs
+        icon: fas fa-code
+        subItems:
+          - title: DevDocs
+            description: Programming language docs
+            icon: fas fa-code-branch
+            url: https://devdocs.io/
+            id: docs_devdocs
+          - title: Developer Roadmaps
+            description: Developer learning paths
+            icon: fas fa-road
+            url: https://roadmap.sh/
+            id: docs_roadmap
+          - title: Cursor AI
+            description: AI-powered code editor docs
+            icon: favicon
+            url: https://docs.cursor.com/
+            id: docs_cursor
+        id: 3_2498_developmentresources
+  - name: Social
+    icon: fas fa-users
+    items:
+      - title: Reddit
+        description: ''
+        icon: si-reddit
+        url: https://www.reddit.com/
+        target: newtab
+        id: 0_603_reddit
+      - title: X
+        description: ''
+        icon: si-x
+        url: https://x.com/
+        target: newtab
+        id: 1_603_x
+      - title: YouTube
+        description: ''
+        icon: si-youtube
+        url: https://youtube.com/
+        target: newtab
+        id: 2_603_youtube
+  - name: Knowledge Base And Tasks
+    icon: fas fa-tasks
+    items:
+      - title: Draw.io/Diagrams.net
+        description: Tasks
+        icon: hl-draw-io
+        url: https://app.diagrams.net
+        id: 0_2196_drawiodiagramsnet
+      - title: Excalidraw
+        description: Make diagrams in your browser
+        icon: favicon
+        url: https://excalidraw.com/
+        id: 1_2196_excalidraw
+  - name: Github
+    icon: fas fa-code-branch
+    widgets:
+      - type: github-profile-stats
+        options:
+          username: <your github username>
+          hideLanguagesCard: true
+          repos:
+            - <your github username>/<your github repo>
+        id: 0_611_githubprofilestats
+  - name: Programming Joke
+    icon: fas fa-laugh
+    widgets:
+      - type: joke
+        options:
+          category: programming
+          safeMode: true
+          language: en
+        id: 0_1580_joke
+  - name: Comic - XKCD
+    icon: fas fa-laugh-squint
+    widgets:
+      - type: xkcd-comic
+        options:
+          comic: latest
+        id: 0_898_xkcdcomic

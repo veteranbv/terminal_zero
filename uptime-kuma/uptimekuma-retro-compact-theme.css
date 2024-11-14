@@ -1,0 +1,333 @@
+/* Base Theme Settings */
+:root {
+    /* Base Theme Colors */
+    --terminal-green: #33ff00;
+    --terminal-bg: #0a0a0a;
+    --terminal-dark: #0c0c0c;
+    --terminal-hover: #111111;
+    
+    /* Status Colors - More Terminal Style */
+    --status-up: #33ff00;     /* Bright Terminal Green */
+    --status-warning: #ffb300; /* Amber Terminal Color */
+    --status-down: #ff3333;    /* Phosphor Red */
+    --status-pending: #7f7f7f; /* Dim Terminal Gray */
+    
+    /* Layout Settings */
+    --min-item-width: 28ch;
+    --max-item-width: 1fr;
+    --grid-spacing: 0.5rem;
+    --item-padding: 1rem;
+    --border-radius: 8px;
+    
+    /* Font Settings */
+    --terminal-font: "Courier New", Courier, monospace;
+}
+
+/* Global Font Settings */
+body, body.dark,
+.btn, .btn-primary, .btn-add-group,
+input, select, textarea,
+.badge, .item-name, time,
+h1, h2, h3, h4, h5, h6,
+.group-title {
+    font-family: var(--terminal-font) !important;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+/* Base Styles */
+body, body.dark {
+    background-color: var(--terminal-bg) !important;
+    color: var(--terminal-green) !important;
+    text-shadow: 0 0 2px rgba(51, 255, 0, 0.3);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+}
+
+/* Page Title */
+h1.title-flex, 
+.group-title {
+    color: var(--terminal-green) !important;
+    text-shadow: 0 0 4px rgba(51, 255, 0, 0.4);
+    font-weight: bold !important;
+}
+
+/* Container and Grid Layout */
+.container {
+    width: 100%;
+    max-width: 98%;
+    margin: auto;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.monitor-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--min-item-width), var(--max-item-width)));
+    gap: var(--grid-spacing);
+    padding: var(--grid-spacing);
+    background: var(--terminal-dark);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Monitor Cards */
+.monitor-list > div {
+    background: var(--terminal-dark);
+    border: 1px solid rgba(51, 255, 0, 0.2);
+    border-radius: calc(var(--border-radius) - 2px);
+    padding: var(--item-padding);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Card Row Layout */
+.monitor-list > div .row {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    margin: 0 !important;
+    min-width: 0;
+    gap: 0.75rem !important;
+}
+
+/* First Row (Title & Percentage) */
+.monitor-list > div .row > div:first-child {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 0 !important;
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* Title and Badge Container */
+.monitor-list > div .row > div:first-child .info {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    font-weight: bold !important;
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* Title text */
+.monitor-list > div .item-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+/* Badge */
+.monitor-list > div .badge {
+    white-space: nowrap;
+    font-weight: bold !important;
+    text-shadow: 0 0 2px rgba(51, 255, 0, 0.3);
+    padding: 0.25rem 0.5rem;
+    border-radius: calc(var(--border-radius) - 4px);
+    flex-shrink: 0;
+}
+
+/* Status Bars Container */
+.monitor-list > div .row > div:last-child {
+    width: 100% !important;
+    padding: 0 !important;
+    min-width: 0;
+}
+
+.monitor-list > div .row > div:last-child .wrap {
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+/* Status Bars */
+.monitor-list > div .hp-bar-big {
+    display: flex !important;
+    width: 100% !important;
+    gap: 2px !important;
+    min-width: 0;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    padding: 0.25rem 0;
+}
+
+.monitor-list > div .beat {
+    flex: 1 1 0 !important;
+    min-width: 2px !important;
+    border-radius: 2px;
+}
+
+/* Time Info */
+.monitor-list > div time {
+    font-size: 0.85em !important;
+    opacity: 0.8 !important;
+}
+
+/* Button Styles */
+.btn, .btn-primary, .btn-add-group {
+    background: transparent !important;
+    border: 1px solid var(--terminal-green) !important;
+    color: var(--terminal-green) !important;
+    transition: all 0.2s ease;
+    margin: 0.5rem;
+    text-shadow: 0 0 2px rgba(51, 255, 0, 0.3);
+    border-radius: calc(var(--border-radius) - 4px);
+}
+
+.btn:hover, .btn-primary:hover, .btn-add-group:hover {
+    background: var(--terminal-green) !important;
+    color: var(--terminal-bg) !important;
+    text-shadow: none;
+}
+
+/* Button Icons */
+.btn svg, .btn-primary svg, .btn-add-group svg {
+    color: var(--terminal-green) !important;
+}
+
+.btn:hover svg, .btn-primary:hover svg, .btn-add-group:hover svg {
+    color: var(--terminal-bg) !important;
+}
+
+/* Status Colors */
+.beat-up {
+    background: var(--status-up) !important;
+    box-shadow: 0 0 5px var(--status-up) !important;
+}
+
+.beat-down {
+    background: var(--status-down) !important;
+    box-shadow: 0 0 5px var(--status-down) !important;
+}
+
+.beat-maintenance {
+    background: var(--status-warning) !important;
+    box-shadow: 0 0 5px var(--status-warning) !important;
+}
+
+.beat-pending {
+    background: var(--status-pending) !important;
+    box-shadow: 0 0 5px var(--status-pending) !important;
+}
+
+/* Status Badge Colors */
+.badge-up, .bg-primary {
+    background-color: var(--status-up) !important;
+    color: var(--terminal-bg) !important;
+}
+
+.badge-down, .bg-danger {
+    background-color: var(--status-down) !important;
+    color: var(--terminal-bg) !important;
+}
+
+.badge-maintenance, .bg-warning {
+    background-color: var(--status-warning) !important;
+    color: var(--terminal-bg) !important;
+}
+
+.badge-pending, .bg-secondary {
+    background-color: var(--status-pending) !important;
+    color: var(--terminal-bg) !important;
+}
+
+/* Status Check Icons */
+.svg-inline--fa.fa-check-circle.ok {
+    color: var(--status-up) !important;
+    filter: drop-shadow(0 0 2px rgba(51, 255, 0, 0.4));
+}
+
+.svg-inline--fa.fa-times-circle.down {
+    color: var(--status-down) !important;
+    filter: drop-shadow(0 0 2px rgba(255, 51, 51, 0.4));
+}
+
+.svg-inline--fa.fa-exclamation-circle.maintenance {
+    color: var(--status-warning) !important;
+    filter: drop-shadow(0 0 2px rgba(255, 179, 0, 0.4));
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px !important;
+    background: var(--terminal-bg) !important;
+}
+
+::-webkit-scrollbar-thumb, .dark::-webkit-scrollbar-thumb {
+    background: var(--terminal-green) !important;
+    border: 1px solid var(--terminal-green) !important;
+    border-radius: 20px;
+}
+
+/* Links */
+a {
+    color: var(--terminal-green);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(51, 255, 0, 0.3);
+}
+
+a:hover {
+    border-bottom-color: var(--terminal-green);
+}
+
+/* Footer */
+footer {
+    border-top: 1px solid rgba(51, 255, 0, 0.3);
+    margin-top: 30px;
+    padding-top: 20px;
+    font-size: 0.9em;
+    color: rgba(51, 255, 0, 0.8);
+}
+
+/* Mobile-Specific Adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 0.5rem;
+    }
+
+    .monitor-list > div {
+        margin-bottom: 0.5rem;
+        padding: 1rem 1.25rem !important;
+    }
+
+    .monitor-list > div .row > div:last-child {
+        display: flex !important;
+        justify-content: space-between !important;
+        margin-top: 0.5rem !important;
+    }
+
+    .monitor-list > div .hp-bar-big {
+        gap: 1px !important;
+    }
+
+    .monitor-list > div .beat {
+        min-width: 1px !important;
+    }
+
+    /* Adjust font sizes for mobile */
+    .monitor-list > div .item-name {
+        font-size: 0.9em !important;
+    }
+
+    .monitor-list > div .badge {
+        font-size: 0.8em !important;
+    }
+
+    .monitor-list > div time {
+        font-size: 0.75em !important;
+    }
+
+    /* Disable hover effects on mobile */
+    .monitor-list > div:hover {
+        transform: none;
+        box-shadow: none;
+    }
+}
